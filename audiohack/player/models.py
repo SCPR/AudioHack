@@ -11,7 +11,6 @@ class Track(models.Model):
     length = models.IntegerField()                      # in milliseconds
     recorded_date = models.DateField()                  #
     soundcloud_id = models.IntegerField()               #
-    annotations = models.ForeignKey('Annotation')       #
 
 ANNOTATION_CHOICES = (
     (u'TE', u'Text'),
@@ -31,6 +30,8 @@ class Annotation(models.Model):
     type = models.CharField(max_length=2, choices = ANNOTATION_CHOICES)
     url = models.URLField()
     description = models.TextField()
+    track = models.ForeignKey('Track')
+           #
 
 class TrackForm(ModelForm):
     class Meta:
