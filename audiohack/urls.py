@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # Example:
     # (r'^audiohack/', include('audiohack.foo.urls')),
     url(r'^$', include('audiohack.player.urls') ),
+    url(r'^api/', include('audiohack.api.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
