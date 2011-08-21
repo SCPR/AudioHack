@@ -3,12 +3,15 @@ from django.forms import ModelForm
 from django.contrib.auth.models import User
 
 class Track(models.Model):
-    url = models.URLField()
-    title = models.CharField(max_length='200')
-    length = models.IntegerField()
-    recorded_date = models.DateField()
-    soundcloud_id = models.IntegerField()
-    annotations = models.ForeignKey('Annotation')
+    '''
+    Track model contains the base audio file paths 
+    '''
+    url = models.URLField()                             # Path to the Track (usually a sound cloud file)
+    title = models.CharField(max_length='200')          # 
+    length = models.IntegerField()                      # in milliseconds
+    recorded_date = models.DateField()                  #
+    soundcloud_id = models.IntegerField()               #
+    annotations = models.ForeignKey('Annotation')       #
 
 ANNOTATION_CHOICES = (
     (u'TE', u'Text'),
@@ -19,6 +22,9 @@ ANNOTATION_CHOICES = (
     )
 
 class Annotation(models.Model):
+    '''
+    Annotations are files and extra information attached to Tracks
+    '''
     user = models.ForeignKey(User)
     start = models.IntegerField()
     end = models.IntegerField()
