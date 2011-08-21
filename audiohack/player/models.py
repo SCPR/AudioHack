@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.db import models
 from django.forms import ModelForm
 from django.contrib.auth.models import User
@@ -6,11 +7,14 @@ class Track(models.Model):
     '''
     Track model contains the base audio file paths 
     '''
+    user = models.ForeignKey(User)
     url = models.URLField()                             # Path to the Track (usually a sound cloud file)
     title = models.CharField(max_length='200')          # 
     length = models.IntegerField()                      # in milliseconds
     recorded_date = models.DateField()                  #
     soundcloud_id = models.CharField(max_length='15')               #
+    added_timestamp = models.DateTimeField(default=datetime.now)
+    
 
 ANNOTATION_CHOICES = (
     (u'TE', u'Text'),
@@ -31,6 +35,7 @@ class Annotation(models.Model):
     url = models.URLField()
     description = models.TextField()
     track = models.ForeignKey('Track')
+    added_timestamp = models.DateTimeField(default=datetime.now)
            #
 
 class TrackForm(ModelForm):
