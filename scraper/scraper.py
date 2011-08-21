@@ -34,6 +34,20 @@ def get_all_tags(url,tag):
     return tree.cssselect(tag)
 
 
+def get_all_city_hall_pages():
+    url = 'http://lacity.granicus.com/ViewPublisher.php?view_id=103'
+    tds = get_all_tags(url,'td.listItem')
+    items = [l for l in tds if 'headers' in l.attrib.keys() and l.attrib['headers'] == 'Audio Link']
+    links = []
+    for i in items:
+        for l in i.iterdescendants():
+            if 'onclick' in l.attrib.keys():
+                links.append(l.attrib['onclick'].split(',')[0].replace('window.open(','').lstrip("'").rstrip("'"))
+    
+    return links
+
+def scrape_city_hall(url):
+    items = get_all_tags(url, 'div#all_Items div.items') 
 
 
 
