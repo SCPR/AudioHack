@@ -47,10 +47,23 @@ def get_all_city_hall_pages():
     return links
 
 def scrape_city_hall(url):
-    items = get_all_tags(url, 'div#all_Items div.items') 
+    items = list(get_all_tags(url, 'div#all_Items')[0].iterchildren()) 
+    ch_list = []
+    for i in items:
+        ch_dict = {}
+        print i.attrib,i.text_content(),list(i.iterdescendants())
+        audio_link = i.find('a')
+        if 'onclick' in audio_link.attrib:
+            ch_dict['time'] = audio_link.attrib['onclick'].split("'")[1] 
+        ch_dict['text'] = i.text_content()
+        ch_list.append(ch_dict)
+    return ch_list
 
 
 
-
-
+def scraper_main():
+    links = get_all_city_hall_pages()
+    for l in links:
+        items = scrape_city_hall(l)
+    return items
 
