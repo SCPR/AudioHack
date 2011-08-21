@@ -7,8 +7,11 @@ class AudioHack.Player
     constructor: (options) ->
         @options = _(_({}).extend(this.DefaultOptions)).extend( options || {} )
         
+        console.log "init for soundcloud on ", @options.soundcloudFileId
+        
         @popcorn = Popcorn( Popcorn.soundcloud( @options.htmlDiv, @options.soundcloudFileId, {
           api: {
             key: @options.soundcloudClientId,
           }
         }) );
+        

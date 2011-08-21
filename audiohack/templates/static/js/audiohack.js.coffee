@@ -6,8 +6,13 @@ class AudioHack.Base
         modalSelect: true
         modalAdmin: true            
 
-    constructor: (options) ->
+    constructor: (data,options) ->
         @options = _(_({}).extend(this.DefaultOptions)).extend( options || {} )
     
-        @player = new Player()
+        @player = new Player
+            soundcloudFileId: @data.soundcloud_id
+            
+        @annotations = new Models.Annotations(data.annotations||[])    
+        @player.bind "timeupdate", (tick) => @annotations.tick tick
+        
         
