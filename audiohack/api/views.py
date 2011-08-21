@@ -1,6 +1,6 @@
 from django.utils import simplejson
-from django.http import HttpResponseServerError
-from audiohack.player.models import Track, Annotation
+from django.http import HttpResponseServerError, HttpResponse
+from audiohack.player.models import Track, Annotation, ANNOTATION_CHOICES
 from django.contrib.auth.models import User
 
 def save(request):
@@ -49,32 +49,26 @@ def save(request):
 
                                 a.save()
 
-        HttpResponse("Got json data")
+        return HttpResponse("Got json data")
+
+    return HttpResponse("JSON only, please.", mimetype="text/plain")
 
 
-'''
-# JSON Sample
+def choices(request):
+    return HttpResponse(simplejson.dumps( {'annotation_choices':ANNOTATION_CHOICES}, sort_keys=True, indent=4 ), mimetype="text/json")
 
-{
-    "data": {
-        "track": [
-            {
-                "length": 1000,
-                "recorded_date": "1/1/2000",
-                "soundcloud_id": "21597662",
-                "title": "title for stuff",
-                "url": "/path/to/stuff",
-                "annotations": [
-                    {
-                        "description": "not much to add",
-                        "end": 200,
-                        "start": 100,
-                        "type": "TE",
-                        "url": "/url/to/the/goods"
-                    }
-                ]
-            }
-        ]
-    },
-    "user": "bob"
-}'''
+
+def sample(request):
+    sample = {'data': {'track': [{'annotations': [{'description': 'not much to add',
+                                          'end': 200,
+                                          'start': 100,
+                                          'type': 'TE',
+                                          'url': '/url/to/the/goods'}],
+                         'length': 1000,
+                         'recorded_date': '1/1/2000',
+                         'soundcloud_id': '21597662',
+                         'title': 'title for stuff',
+                         'url': '/path/to/stuff'}]},
+              'user': 'bob'}
+
+    return HttpResponse(simplejson.dumps( sample, sort_keys=True, indent=4 ), mimetype="text/json")

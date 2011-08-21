@@ -10,15 +10,15 @@ def player(request):
     '''
     ctx = RequestContext(request, {})
     
-    return render_to_response('player.html', ctx )
+    return render_to_response('player/player.html', ctx )
 
 def all_tracks(request):
     '''
-    Display all tracks
+    Display last 10 tracks added
     '''
-    tracks = Track.objects.all(order_by='-added_timestamp')[:9]
+    tracks = Track.objects.order_by('-added_timestamp')[:9]
     ctx = RequestContext(request, {'tracks':tracks})
-    return render_to_response('tracks.html', ctx)
+    return render_to_response('player/tracks.html', ctx)
 
 def track(request, track):
     '''
@@ -27,14 +27,14 @@ def track(request, track):
     track = Track.objects.get(id=track)
     annotations = Annotation.objects.filter(track_id=track)
     ctx = RequestContext(request, {'track':track, 'annotations':annotations})
-    return render_to_response('track.html', ctx)
+    return render_to_response('player/track.html', ctx)
     
 def annotate(request, track):
     '''
     Add annotation
     '''
     ctx = RequestContext(request, {})    
-    return render_to_response('player.html', ctx )
+    return render_to_response('player/player.html', ctx )
     
 
 def add_track(request):
