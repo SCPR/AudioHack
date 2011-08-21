@@ -70,13 +70,20 @@
         return this;
       }
     });
+    Models.ImageView = Models.AnnotationView.extend({
+      template: "<img src=\"<%= url %>\"/>"
+    });
+    Models.ViewMap = {
+      "TEXT": "AnnotationView",
+      "IMAGE": "ImageView"
+    };
     Models.AnnotationsView = Backbone.View.extend({
       tagName: 'ul',
       initialize: function() {
         this._views = {};
         this.collection.bind('add', __bind(function(f) {
           console.log("add event from ", f);
-          this._views[f.cid] = new Models.AnnotationView({
+          this._views[f.cid] = new Models[Models.ViewMap[f.get("type") || "AnnotationView"]]({
             model: f
           });
           return this.render();
@@ -96,7 +103,7 @@
       render: function() {
         this.collection.each(__bind(function(f) {
           var _base, _name, _ref;
-          return (_ref = (_base = this._views)[_name = f.cid]) != null ? _ref : _base[_name] = new Models.AnnotationView({
+          return (_ref = (_base = this._views)[_name = f.cid]) != null ? _ref : _base[_name] = new Models[Models.ViewMap[f.get("type") || "AnnotationView"]]({
             model: f
           });
         }, this));

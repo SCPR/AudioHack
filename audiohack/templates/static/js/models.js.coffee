@@ -36,6 +36,17 @@ class AudioHack.Models
                     $( @el ).html('')
                     
                 this
+                
+    @ImageView:
+        @AnnotationView.extend
+            template:
+                """
+                <img src="<%= url %>"/>
+                """
+                
+    @ViewMap:
+        "TEXT": "AnnotationView",
+        "IMAGE": "ImageView"
                         
     @AnnotationsView:
         Backbone.View.extend
@@ -46,7 +57,7 @@ class AudioHack.Models
 
                 @collection.bind 'add', (f) => 
                     console.log "add event from ", f
-                    @_views[f.cid] = new Models.AnnotationView({model:f})
+                    @_views[f.cid] = new Models[Models.ViewMap[f.get("type")||"AnnotationView"]]({model:f})
                     @render()
 
                 @collection.bind 'remove', (f) => 
@@ -65,7 +76,7 @@ class AudioHack.Models
                 # set up views for each collection member
                 @collection.each (f) => 
                     # create a view unless one exists
-                    @_views[f.cid] ?= new Models.AnnotationView({model:f})
+                    @_views[f.cid] ?= new Models[Models.ViewMap[f.get("type")||"AnnotationView"]]({model:f})
 
                 # make sure all of our view elements are added
                 $(@el).append( _(@_views).map (v) -> v.el )
