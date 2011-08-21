@@ -25,12 +25,17 @@
   })();
   AudioHack.Player = (function() {
     Player.prototype.DefaultOptions = {
-      assetBrowserEl: "#asset_browser",
-      modalSelect: true,
-      modalAdmin: true
+      soundcloudClientId: "74186e4ab0b72e1d480f4b5e147042fb",
+      soundcloudFileId: "",
+      htmlDiv: "player"
     };
     function Player(options) {
       this.options = _(_({}).extend(this.DefaultOptions)).extend(options || {});
+      this.popcorn = Popcorn(Popcorn.soundcloud(this.options.htmlDiv, this.options.soundcloudFileId, {
+        api: {
+          key: this.options.soundcloudClientId
+        }
+      }));
     }
     return Player;
   })();
