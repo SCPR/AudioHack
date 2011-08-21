@@ -7,13 +7,13 @@ class TrackTestCase(unittest.TestCase):
                                         title="Ghost Sound",
                                         length=1000,
                                         recorded_date="1/1/1000",
-                                        soundcloud_id=21597662,
+                                        soundcloud_id="21597662",
                                         )
         self.poo = Animal.objects.create(url="/this/path/poo.mp3", 
                                         title="Polite way of saying Cr#!p",
                                         length=2000,
                                         recorded_date="2/2/2000",
-                                        soundcloud_id=21597662,
+                                        soundcloud_id="21597662",
                                         )
 
 

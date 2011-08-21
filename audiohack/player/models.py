@@ -10,7 +10,7 @@ class Track(models.Model):
     title = models.CharField(max_length='200')          # 
     length = models.IntegerField()                      # in milliseconds
     recorded_date = models.DateField()                  #
-    soundcloud_id = models.IntegerField()               #
+    soundcloud_id = models.CharField(max_length='15')               #
 
 ANNOTATION_CHOICES = (
     (u'TE', u'Text'),
