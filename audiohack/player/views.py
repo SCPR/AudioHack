@@ -14,9 +14,9 @@ def player(request):
 
 def all_tracks(request):
     '''
-    Display all tracks
+    Display last 10 tracks added
     '''
-    tracks = Track.objects.all(order_by='-added_timestamp')[:9]
+    tracks = Track.objects.order_by('-added_timestamp')[:9]
     ctx = RequestContext(request, {'tracks':tracks})
     return render_to_response('tracks.html', ctx)
 
