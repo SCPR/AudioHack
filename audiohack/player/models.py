@@ -10,8 +10,7 @@ class Track(models.Model):
     soundcloud_id = models.IntegerField()
     annotations = models.ForeignKey('Annotation')
 
-ANNOTATION_CHOICES = 
-    (
+ANNOTATION_CHOICES = (
     (u'TE', u'Text'),
     (u'IM', u'Image'),
     (u'TW', u'Twitter'),
