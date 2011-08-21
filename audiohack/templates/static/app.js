@@ -19,6 +19,9 @@
       this.player.bind("timeupdate", __bind(function() {
         return this.annotations.tick(this.player.popcorn.currentTime());
       }, this));
+      this.player.bind("timeupdate", __bind(function() {
+        return $("#time").html(this.player.popcorn.currentTime());
+      }, this));
       this.aView = new AudioHack.Models.AnnotationsView({
         collection: this.annotations
       });
