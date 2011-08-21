@@ -8,16 +8,19 @@
 		<script type="text/javascript" src="app.js"></script>
 	</head>
 	<body>
-		<div id="foo"></div>
+		<div id="player"></div>
 	</body>
 	
 	<script type="text/javascript">
         $( function() {
-		    popcorn = Popcorn( Popcorn.soundcloud( "foo", "http://soundcloud.com/user979634/la-public-safety-08-08-11", {
-                api: {
-                    key: "74186e4ab0b72e1d480f4b5e147042fb",
-                }
-            }) );
+		    audiohack = new AudioHack.Base({
+                soundcloud_id: "",
+                annotations: [
+                    
+                ]
+		    },{
+                
+		    });
         });
 	</script>
 </html>
