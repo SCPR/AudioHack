@@ -19,6 +19,8 @@ class AudioHack.Player
               }
             }) );
             
+            @popcorn.play()
+            
             console.log "popcorn is ", @popcorn
             
             @popcorn.listen "timeupdate", (evt) => @trigger 'timeupdate', evt

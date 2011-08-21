@@ -17,7 +17,7 @@
       });
       this.annotations = new AudioHack.Models.Annotations(data.annotations || []);
       this.player.bind("timeupdate", __bind(function(evt) {
-        return console.log("tick is ", evt);
+        return console.log("tick is ", this.player.popcorn.currentTime());
       }, this));
     }
     return Base;
@@ -47,6 +47,7 @@
             key: this.options.soundcloudClientId
           }
         }));
+        this.popcorn.play();
         console.log("popcorn is ", this.popcorn);
         return this.popcorn.listen("timeupdate", __bind(function(evt) {
           return this.trigger('timeupdate', evt);

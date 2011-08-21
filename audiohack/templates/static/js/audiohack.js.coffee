@@ -16,5 +16,5 @@ class AudioHack.Base
         @annotations = new AudioHack.Models.Annotations data.annotations||[]    
         #@player.bind "timeupdate", (tick) => @annotations.tick tick
         
-        @player.bind "timeupdate", (evt) => console.log "tick is ", evt
+        @player.bind "timeupdate", (evt) => console.log "tick is ", @player.popcorn.currentTime()
         
