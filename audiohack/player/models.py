@@ -14,7 +14,7 @@ class Track(models.Model):
     recorded_date = models.DateField()                  #
     soundcloud_id = models.CharField(max_length='15')               #
     added_timestamp = models.DateTimeField(default=datetime.now)
-    
+    user = models.ForeignKey(User)             #
 
 ANNOTATION_CHOICES = (
     (u'TE', u'Text'),
