@@ -47,10 +47,12 @@
             key: this.options.soundcloudClientId
           }
         }));
-        this.popcorn.play();
-        console.log("popcorn is ", this.popcorn);
-        return this.popcorn.listen("timeupdate", __bind(function(evt) {
-          return this.trigger('timeupdate', evt);
+        return this.popcorn.listen("load", __bind(function() {
+          this.popcorn.play();
+          console.log("popcorn is ", this.popcorn);
+          return this.popcorn.listen("timeupdate", __bind(function(evt) {
+            return this.trigger('timeupdate', evt);
+          }, this));
         }, this));
       }, this));
     }

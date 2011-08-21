@@ -19,9 +19,10 @@ class AudioHack.Player
               }
             }) );
             
-            @popcorn.play()
+            @popcorn.listen "load", =>
+                @popcorn.play()
             
-            console.log "popcorn is ", @popcorn
+                console.log "popcorn is ", @popcorn
             
-            @popcorn.listen "timeupdate", (evt) => @trigger 'timeupdate', evt
+                @popcorn.listen "timeupdate", (evt) => @trigger 'timeupdate', evt
         
