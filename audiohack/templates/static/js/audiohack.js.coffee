@@ -16,7 +16,7 @@ class AudioHack.Base
             soundcloudFileId: data.soundcloud_id
             
         @player.bind "timeupdate", => @annotations.tick @player.popcorn.currentTime()
-        #@player.bind "timeupdate", => console.log "tickTock", @player.popcorn.currentTime()
+        @player.bind "timeupdate", => $("#time").html @player.popcorn.currentTime()
         
         @aView = new AudioHack.Models.AnnotationsView collection:@annotations
         $("#annotations").html @aView.el
