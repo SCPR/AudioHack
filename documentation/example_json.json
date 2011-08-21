@@ -1,0 +1,17 @@
+{
+	id: 1234,
+	soundcloud_id: 123456,
+	title: "Foo",
+	author: USER_KEY?,
+	length: NUM_OF_SECONDS,
+	recorded_date: "2011-07-15",
+	annotations: [
+		{
+			user: USER_KEY,
+			type: TEXT | IMAGE | ETC,
+			url: http://etc,
+			start: 17,
+			end: 42
+		}
+	]
+}
