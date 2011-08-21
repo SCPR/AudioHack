@@ -8,11 +8,11 @@ class Track(models.Model):
     Track model contains the base audio file paths 
     '''
     user = models.ForeignKey(User)
-    url = models.URLField()                             # Path to the Track (usually a sound cloud file)
+    url = models.URLField(blank=True,null=True)         # Path to the Track (usually a sound cloud file)
     title = models.CharField(max_length='200')          # 
     length = models.IntegerField()                      # in milliseconds
     recorded_date = models.DateField()                  #
-    soundcloud_id = models.CharField(max_length='15')               #
+    soundcloud_id = models.CharField(max_length='15',blank=True,null=True)               #
     added_timestamp = models.DateTimeField(default=datetime.now)
     user = models.ForeignKey(User)             #
 
@@ -32,7 +32,7 @@ class Annotation(models.Model):
     start = models.IntegerField()
     end = models.IntegerField()
     type = models.CharField(max_length=2, choices = ANNOTATION_CHOICES)
-    url = models.URLField()
+    url = models.URLField(blank=True,null=True)
     description = models.TextField()
     track = models.ForeignKey('Track')
     added_timestamp = models.DateTimeField(default=datetime.now)
