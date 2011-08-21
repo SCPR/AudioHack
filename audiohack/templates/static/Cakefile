@@ -1,0 +1,39 @@
+fs = require 'fs'
+{exec} = require 'child_process'
+
+option '-o', '--output [DIR]', 'directory for compiled code'
+
+#appFiles = [
+#    'js/underscore.js',
+#    'js/backbone.js',
+#    'js/popcorn-complete.js',
+#    'js/popcorn.soundcloud.js'
+
+appFiles = [
+    'js/audiohack.js.coffee',
+    'js/models.js.coffee',
+    'js/player.js.coffee'
+]
+    
+
+task 'build', "Build the MobileAsset CoffeeScript", (options) -> 
+    appContents = new Array remaining = appFiles.length
+    for file, index in appFiles then do (file, index) ->
+        fs.readFile "#{file}", 'utf8', (err, fileContents) ->
+            throw err if err
+            appContents[index] = fileContents
+            process() if --remaining is 0
+
+    process = ->
+        dir = options.output or './'
+
+        fs.writeFile "#{dir}/app.coffee", appContents.join('\n\n'), 'utf8', (err) ->
+            throw err if err
+            
+            exec "coffee --compile #{dir}/app.coffee", (err, stdout, stderr) ->
+                throw err if err
+                
+                console.log stdout + stderr
+                fs.unlink "#{dir}/app.coffee", (err) ->
+                    throw err if err
+                    console.log "Done."
