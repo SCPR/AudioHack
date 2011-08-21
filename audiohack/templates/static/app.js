@@ -11,12 +11,13 @@
     };
     function Base(data, options) {
       this.options = _(_({}).extend(this.DefaultOptions)).extend(options || {});
-      this.player = new Player({
-        soundcloudFileId: this.data.soundcloud_id
+      console.log("init player with ", data.soundcloud_id);
+      this.player = new AudioHack.Player({
+        soundcloudFileId: data.soundcloud_id
       });
-      this.annotations = new Models.Annotations(data.annotations || []);
-      this.player.bind("timeupdate", __bind(function(tick) {
-        return this.annotations.tick(tick);
+      this.annotations = new AudioHack.Models.Annotations(data.annotations || []);
+      this.player.bind("timeupdate", __bind(function(evt) {
+        return console.log("tick is ", evt);
       }, this));
     }
     return Base;
@@ -38,12 +39,19 @@
     };
     function Player(options) {
       this.options = _(_({}).extend(this.DefaultOptions)).extend(options || {});
+      _.extend(this, Backbone.Events);
       console.log("init for soundcloud on ", this.options.soundcloudFileId);
-      this.popcorn = Popcorn(Popcorn.soundcloud(this.options.htmlDiv, this.options.soundcloudFileId, {
-        api: {
-          key: this.options.soundcloudClientId
-        }
-      }));
+      $(__bind(function() {
+        this.popcorn = Popcorn(Popcorn.soundcloud(this.options.htmlDiv, this.options.soundcloudFileId, {
+          api: {
+            key: this.options.soundcloudClientId
+          }
+        }));
+        console.log("popcorn is ", this.popcorn);
+        return this.popcorn.listen("timeupdate", __bind(function(evt) {
+          return this.trigger('timeupdate', evt);
+        }, this));
+      }, this));
     }
     return Player;
   })();

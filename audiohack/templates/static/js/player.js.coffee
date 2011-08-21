@@ -7,11 +7,19 @@ class AudioHack.Player
     constructor: (options) ->
         @options = _(_({}).extend(this.DefaultOptions)).extend( options || {} )
         
+        # add in events
+        _.extend(this, Backbone.Events)
+        
         console.log "init for soundcloud on ", @options.soundcloudFileId
         
-        @popcorn = Popcorn( Popcorn.soundcloud( @options.htmlDiv, @options.soundcloudFileId, {
-          api: {
-            key: @options.soundcloudClientId,
-          }
-        }) );
+        $ =>        
+            @popcorn = Popcorn( Popcorn.soundcloud( @options.htmlDiv, @options.soundcloudFileId, {
+              api: {
+                key: @options.soundcloudClientId,
+              }
+            }) );
+            
+            console.log "popcorn is ", @popcorn
+            
+            @popcorn.listen "timeupdate", (evt) => @trigger 'timeupdate', evt
         
