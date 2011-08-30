@@ -17,11 +17,11 @@ class Track(models.Model):
     user = models.ForeignKey(User)             #
 
 ANNOTATION_CHOICES = (
-    (u'TE', u'Text'),
-    (u'IM', u'Image'),
-    (u'TW', u'Twitter'),
-    (u'WB', u'Web Page'),
-    (u'MP', u'Map/Location'),
+    (u'TE', u'TEXT'),
+    (u'IM', u'IMAGE'),
+    (u'TW', u'TWITTER'),
+    (u'WB', u'WEBPAGE'),
+    (u'MP', u'LOCATION'),
     )
 
 class Annotation(models.Model):
@@ -37,6 +37,25 @@ class Annotation(models.Model):
     track = models.ForeignKey('Track')
     added_timestamp = models.DateTimeField(default=datetime.now)
            #
+
+    def serialize_annotation(self):
+        
+        #choice = None
+        
+        #for ann in ANNOTATION_CHOICES:
+        #    if ann[0] == self.type:
+        #        choice = ann[1]
+                
+        result = {'start':self.start, 'end':self.end, 'type':self.get_type_display() }
+        
+        if self.url:
+            result['url'] = self.url
+        
+        if self.description:
+            result['description'] = self.description
+        
+        return result
+        
 
 class TrackForm(ModelForm):
     class Meta:
