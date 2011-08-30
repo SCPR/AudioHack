@@ -1,12 +1,12 @@
 {% extends 'index.html' %}
 
 {% block head %}
-	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
-	<script type="text/javascript" src="js/underscore.js"></script>
-	<script type="text/javascript" src="js/backbone.js"></script>
-	<script type="text/javascript" src="js/popcorn.js"></script>
-	<script type="text/javascript" src="js/popcorn.soundcloud.js"></script>
-	<script type="text/javascript" src="app.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/underscore.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/backbone.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/popcorn.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}js/popcorn.soundcloud.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}app.js"></script>
 
 	<style>
 		#annotations.img {
