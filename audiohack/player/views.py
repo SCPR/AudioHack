@@ -9,6 +9,7 @@ def player(request):
     Default Player page.
     '''
     ctx = RequestContext(request, {})
+    user = User.objects.get(pk=1)       # For testing purposes
     
     return render_to_response('player/player.html', ctx )
 
