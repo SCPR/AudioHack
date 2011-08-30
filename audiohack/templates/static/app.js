@@ -14,13 +14,10 @@
       this.annotations = new AudioHack.Models.Annotations(data.annotations || []);
       console.log("init player with ", data.soundcloud_id);
       this.player = new AudioHack.Player({
-        soundcloudFileId: data.soundcloud_id
+        audio_url: data.audio_url
       });
       this.player.bind("timeupdate", __bind(function() {
         return this.annotations.tick(this.player.popcorn.currentTime());
-      }, this));
-      this.player.bind("timeupdate", __bind(function() {
-        return $("#time").html(this.player.popcorn.currentTime());
       }, this));
       this.aView = new AudioHack.Models.AnnotationsView({
         collection: this.annotations
@@ -117,27 +114,26 @@
   })();
   AudioHack.Player = (function() {
     Player.prototype.DefaultOptions = {
-      soundcloudClientId: "74186e4ab0b72e1d480f4b5e147042fb",
-      soundcloudFileId: "",
-      htmlDiv: "player"
+      audio_url: "",
+      htmlDiv: "#player"
     };
     function Player(options) {
       this.options = _(_({}).extend(this.DefaultOptions)).extend(options || {});
       _.extend(this, Backbone.Events);
-      console.log("init for soundcloud on ", this.options.soundcloudFileId);
-      $(__bind(function() {
-        this.popcorn = Popcorn(Popcorn.soundcloud(this.options.htmlDiv, this.options.soundcloudFileId, {
-          api: {
-            key: this.options.soundcloudClientId
-          }
-        }));
-        this.popcorn.pause();
-        this.popcorn.play();
-        console.log("popcorn is ", this.popcorn);
-        return this.popcorn.listen("timeupdate", __bind(function(evt) {
-          return this.trigger('timeupdate', evt);
-        }, this));
-      }, this));
+      console.log("init for player on ", this.options.audio_url);
+      this.jplayer = $(this.options.htmlDiv).jPlayer({
+        supplied: 'mp3',
+        solution: 'html',
+        autoplay: 'metadata',
+        ready: __bind(function(evt) {
+          console.log("in ready evt for jPlayer");
+          return $(this.options.htmlDiv).jPlayer("setMedia", {
+            mp3: this.options.audio_url
+          }, this.popcorn = Popcorn("#" + this.jplayer.data('jPlayer').internal.audio.id), this.popcorn.listen("timeupdate", __bind(function(evt) {
+            return this.trigger('timeupdate', evt);
+          }, this)));
+        }, this)
+      });
     }
     return Player;
   })();

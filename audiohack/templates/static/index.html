@@ -1,11 +1,10 @@
 <html>
 	<head>
 		<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
-        
+		<script type="text/javascript" src="js/jquery.jplayer.min.js"></script>
 		<script type="text/javascript" src="js/underscore.js"></script>
 		<script type="text/javascript" src="js/backbone.js"></script>
 		<script type="text/javascript" src="js/popcorn.js"></script>
-		<script type="text/javascript" src="js/popcorn.soundcloud.js"></script>
 		<script type="text/javascript" src="app.js"></script>
 		
 		<style>
@@ -17,13 +16,26 @@
 	</head>
 	<body>
 		<div id="player"></div>
-		Time: <span id="time"></span>
+		<div id="jp_interface_1">
+		<ul>
+			<li class="jp-play">Play</li>
+			<li class="jp-pause">Pause</li>
+			<li class="jp-stop">Stop</li>
+		</ul>
+		<div style="width: 400px">
+		<div class="jp-seek-bar" style="height: 20px;background: #bbb">
+			<div class="jp-play-bar" style="background: #eef;height: 20px"></div>
+		</div>
+		</div>
+		Time: <span id="time" class="jp-current-time"></span>
+		</div>
 		<div id="annotations"></div>
 	</body>
 	
 	<script type="text/javascript">
 		console.log("firing audiohack base")
 	    audiohack = new AudioHack.Base({
+			audio_url: "http://audiohack.ericrichardson.com.s3.amazonaws.com/la_daa894d3-0c70-4e76-ae9b-ff4713fd988b.mp3",
             soundcloud_id: "http://soundcloud.com/user979634/la-public-safety-08-08-11",
 			annotations: [
 				{

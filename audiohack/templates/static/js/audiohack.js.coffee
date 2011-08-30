@@ -13,10 +13,10 @@ class AudioHack.Base
     
         console.log "init player with ", data.soundcloud_id
         @player = new AudioHack.Player
-            soundcloudFileId: data.soundcloud_id
+            audio_url: data.audio_url
             
         @player.bind "timeupdate", => @annotations.tick @player.popcorn.currentTime()
-        @player.bind "timeupdate", => $("#time").html @player.popcorn.currentTime()
+        #@player.bind "timeupdate", => $("#time").html @player.popcorn.currentTime()
         
         @aView = new AudioHack.Models.AnnotationsView collection:@annotations
         $("#annotations").html @aView.el
